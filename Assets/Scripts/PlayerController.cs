@@ -8,23 +8,27 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float moveSpeed = 2f;
 
     //State
-    float velocityX;
-    float velocityY;
+    Vector2 movement;
 
     //Cached Component References
 
-    [SerializeField] Rigidbody2D rigidbody;
+    [SerializeField] Rigidbody2D rb;
 
-    void Update()
+    private void Update()
+    {
+        //Input
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
+    }
+
+
+    void FixedUpdate()
     {
         PlayerMovement();
     }
 
     void PlayerMovement()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-        
-
+        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
     }
 }
