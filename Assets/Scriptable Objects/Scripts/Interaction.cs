@@ -7,5 +7,8 @@ using UnityEngine;
 public class Interaction : ScriptableObject
 {
     
-
+    public void Initiate()
+    {
+        
+    }
 }
