@@ -5,23 +5,22 @@ using UnityEngine;
 public class Battle : MonoBehaviour
 {
     //Serialize Params
+    [SerializeField] StatusEffectController playerStatus;
+    [SerializeField] StatusEffectController enemyStatus;
+
     public bool playerFirst;
     //State
     bool playerTurn;
     bool enemyTurn;
 
 
-    //Cached comp 
-    PlayerStatusEffects playerStatus;
-    GameObject enemy;
+    //Cached comp
 
     // Start is called before the first frame update
     void Start()
     {
         //Cache Comps
-        playerStatus = FindObjectOfType<PlayerStatusEffects>();
-
-
+       
         if (playerFirst)
         {
             StartPlayerTurn();
@@ -50,7 +49,6 @@ public class Battle : MonoBehaviour
     {
         playerTurn = true;
         enemyTurn = false;
-
         //Status Effects
         playerStatus.Tick();
     }

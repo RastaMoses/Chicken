@@ -8,18 +8,19 @@ public class EnemyAttacker : MonoBehaviour
     [SerializeField] int damage;
     [SerializeField] int burnDamage;
     [SerializeField] int burnDuration;
+    [SerializeField] StatusEffectController playerStatusEffects;
 
     //State
 
     //cached comps
     PlayerHealth playerHealth;
-    PlayerStatusEffects playerStatusEffects;
+    
 
 
     private void Start()
     {
         playerHealth = FindObjectOfType<PlayerHealth>();
-        playerStatusEffects = FindObjectOfType<PlayerStatusEffects>();
+        
     }
 
 
@@ -30,7 +31,7 @@ public class EnemyAttacker : MonoBehaviour
 
     public void FireAttack()
     {
-        playerStatusEffects.SetBurning(burnDuration, burnDamage);
+        playerStatusEffects.SetBurn(burnDuration, burnDamage);
 
     }
 }
