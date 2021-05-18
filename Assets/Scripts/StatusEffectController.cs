@@ -11,29 +11,29 @@ public class StatusEffectController : MonoBehaviour
 
     //State
 
-    //SE bools
+    // bool
     bool burn;
-    //SE Durations
+    // Durations
     int burnDuration;
-    //SE Saved Vars
-    int burnDamage;
+    // Power
+    int burnPower;
     
     
     //Cached Comp
     Battle battle;
-    PlayerHealth playerHealth;
+    Health health;
 
     private void Awake()
     {
         battle = FindObjectOfType<Battle>();
-        playerHealth = GetComponent<PlayerHealth>();
+        health = GetComponent<Health>();
     }
 
     private void Start()
     {
         //Set States to 0
         burnDuration = 0;
-        burnDamage = 0;
+        burnPower = 0;
     }
     public void Tick()
     {
@@ -45,11 +45,13 @@ public class StatusEffectController : MonoBehaviour
 
     #region Set Effects
     //Set Status
-    public void SetBurn(int duration, int damage)
+    public void SetBurn(int duration, int power)
     {
         burn = true;
         burnDuration += duration;
-        burnDamage += damage;
+        Debug.Log("Burn Duration on " + gameObject.name + " is " + burnDuration);
+        burnPower += power;
+        Debug.Log("Burn Power on " + gameObject.name + " is " + burnPower);
     }
     #endregion
 
@@ -57,12 +59,14 @@ public class StatusEffectController : MonoBehaviour
 
     private void BurnTick()
     {
-        playerHealth.TakeDamage(burnDamage);
+        health.TakeDamage(burnPower);
         burnDuration--;
+        Debug.Log("Burn Duration on " + gameObject.name + " is " + burnDuration);
         if (burnDuration <= 0)
         {
             burn = false;
-            burnDamage = 0;
+            burnPower = 0;
+            Debug.Log("Burn Power on " + gameObject.name + " is " + burnPower);
         }
     }
 
