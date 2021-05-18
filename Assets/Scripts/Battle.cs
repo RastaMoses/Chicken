@@ -15,10 +15,14 @@ public class Battle : MonoBehaviour
 
 
     //Cached comp
-
+    BattleScreenController battleScreenController;
     // Start is called before the first frame update
     void Start()
     {
+        battleScreenController = GetComponent<BattleScreenController>();
+
+
+
         //Find StatusEffectController Objects and check if they are Players through Tag and assign
         StatusEffectController[] statusControllers = FindObjectsOfType<StatusEffectController>();
         foreach (StatusEffectController i in statusControllers)
@@ -55,6 +59,7 @@ public class Battle : MonoBehaviour
     {
         playerTurn = false;
         enemyTurn = true;
+        battleScreenController.ChangeTurnDisplayToEnemy();
         //Status Effects
         enemyStatusController.Tick();
     }
@@ -64,6 +69,7 @@ public class Battle : MonoBehaviour
     {
         playerTurn = true;
         enemyTurn = false;
+        battleScreenController.ChangeTurnDisplayToPlayer();
         //Status Effects
         playerStatusController.Tick();
     }
