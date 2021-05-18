@@ -5,7 +5,8 @@ public enum ItemType
 {
     Consumable,
     Equipment
-}
+};
+
 public abstract class Item : ScriptableObject
 {
     [HideInInspector] public ItemType type;

@@ -5,8 +5,8 @@ using UnityEngine;
 public class Battle : MonoBehaviour
 {
     //Serialize Params
-    [SerializeField] StatusEffectController playerStatus;
-    [SerializeField] StatusEffectController enemyStatus;
+    StatusEffectController playerStatusController;
+    StatusEffectController enemyStatusController;
 
     public bool playerFirst;
     //State
@@ -19,8 +19,21 @@ public class Battle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Cache Comps
-       
+        //Find StatusEffectController Objects and check if they are Players through Tag and assign
+        StatusEffectController[] statusControllers = FindObjectsOfType<StatusEffectController>();
+        foreach (StatusEffectController i in statusControllers)
+        {
+            if (i.gameObject.CompareTag("Player"))
+            {
+                playerStatusController = i;
+            }
+            else
+            {
+                enemyStatusController = i;
+            }
+
+        }
+
         if (playerFirst)
         {
             StartPlayerTurn();
@@ -42,6 +55,8 @@ public class Battle : MonoBehaviour
     {
         playerTurn = false;
         enemyTurn = true;
+        //Status Effects
+        enemyStatusController.Tick();
     }
 
        
@@ -50,7 +65,7 @@ public class Battle : MonoBehaviour
         playerTurn = true;
         enemyTurn = false;
         //Status Effects
-        playerStatus.Tick();
+        playerStatusController.Tick();
     }
 
 
