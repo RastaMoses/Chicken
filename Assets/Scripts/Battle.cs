@@ -5,22 +5,38 @@ using UnityEngine;
 public class Battle : MonoBehaviour
 {
     //Serialize Params
+    StatusEffectController playerStatusController;
+    StatusEffectController enemyStatusController;
+
     public bool playerFirst;
     //State
     bool playerTurn;
     bool enemyTurn;
 
 
-    //Cached comp 
-    PlayerStatusEffects playerStatus;
-    GameObject enemy;
-
+    //Cached comp
+    BattleScreenController battleScreenController;
     // Start is called before the first frame update
     void Start()
     {
-        //Cache Comps
-        playerStatus = FindObjectOfType<PlayerStatusEffects>();
+        battleScreenController = GetComponent<BattleScreenController>();
 
+
+
+        //Find StatusEffectController Objects and check if they are Players through Tag and assign
+        StatusEffectController[] statusControllers = FindObjectsOfType<StatusEffectController>();
+        foreach (StatusEffectController i in statusControllers)
+        {
+            if (i.gameObject.CompareTag("Player"))
+            {
+                playerStatusController = i;
+            }
+            else
+            {
+                enemyStatusController = i;
+            }
+
+        }
 
         if (playerFirst)
         {
@@ -32,17 +48,25 @@ public class Battle : MonoBehaviour
             StartEnemyTurn();
         }
     }
-
-    // Update is called once per frame
-    void Update()
+    public void SwitchTurn()
     {
-        
+        if (playerTurn)
+        {
+            StartEnemyTurn();
+        }
+        else if (enemyTurn)
+        {
+            StartPlayerTurn();
+        }
     }
     
     void StartEnemyTurn()
     {
         playerTurn = false;
         enemyTurn = true;
+        battleScreenController.ChangeTurnDisplayToEnemy();
+        //Status Effects
+        enemyStatusController.Tick();
     }
 
        
@@ -50,9 +74,9 @@ public class Battle : MonoBehaviour
     {
         playerTurn = true;
         enemyTurn = false;
-
+        battleScreenController.ChangeTurnDisplayToPlayer();
         //Status Effects
-        playerStatus.Tick();
+        playerStatusController.Tick();
     }
 
 
