@@ -48,11 +48,16 @@ public class Battle : MonoBehaviour
             StartEnemyTurn();
         }
     }
-
-    // Update is called once per frame
-    void Update()
+    public void SwitchTurn()
     {
-        
+        if (playerTurn)
+        {
+            StartEnemyTurn();
+        }
+        else if (enemyTurn)
+        {
+            StartPlayerTurn();
+        }
     }
     
     void StartEnemyTurn()

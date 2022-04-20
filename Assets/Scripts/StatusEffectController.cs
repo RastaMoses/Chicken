@@ -73,7 +73,6 @@ public class StatusEffectController : MonoBehaviour
     #endregion
 
 
-
     public void CleanseAllEffects()
     {
         //Burning
