@@ -16,4 +16,10 @@ public class SceneLoader : MonoBehaviour
     {
         SceneManager.LoadScene(currentScene + 1);
     }
+
+    public void LoadScene(int buildIndex)
+    {
+        SceneManager.LoadScene(buildIndex);
+    }
+
 }

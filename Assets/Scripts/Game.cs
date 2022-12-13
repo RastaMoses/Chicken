@@ -109,5 +109,13 @@ public class Game : MonoBehaviour
         playerTurn = false;
         Debug.Log("GAME OVER!");
         gameOverScreen.SetActive(true);
+        StartCoroutine(BackToMenu());
+    }
+
+
+    IEnumerator BackToMenu()
+    {
+        yield return new WaitForSeconds(2);
+        FindObjectOfType<SceneLoader>().LoadScene(0);
     }
 }
