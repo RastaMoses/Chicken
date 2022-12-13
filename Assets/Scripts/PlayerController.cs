@@ -87,6 +87,12 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(Death());
         }
+
+        //Hit Goal
+        if (collision.gameObject.layer == 11)
+        {
+            FindObjectOfType<Timer>().StopTimer();
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -111,4 +117,9 @@ public class PlayerController : MonoBehaviour
         transform.localScale = new Vector3(playerSize, playerSize, playerSize);
     }
 
+    public void TimerEnd()
+    {
+        StartCoroutine(Death());
+        Debug.Log("Timer End");
+    }
 }
