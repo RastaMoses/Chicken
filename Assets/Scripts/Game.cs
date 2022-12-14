@@ -1,20 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Game : MonoBehaviour
 {
     [SerializeField] GameObject gameOverScreen;
     [SerializeField] List<GameObject> buttons;
     [SerializeField] float timeBetweenButtons = 2f;
+    [SerializeField] TextMeshProUGUI turnText;
     public List<int> order;
     public List<int> playerOrder;
     int orderIndex;
     bool canClick;
     bool playerTurn;
+    int turnCounter;
     // Start is called before the first frame update
     void Start()
     {
+        turnCounter = 0;
         SetClickability(false);
         order = new List<int>();
         playerOrder = new List<int>();
@@ -30,6 +34,8 @@ public class Game : MonoBehaviour
 
     IEnumerator NewRound()
     {
+        turnCounter++;
+        turnText.text = turnCounter.ToString();
         SetClickability(false);
         //Plays all buttons at once
         foreach (GameObject i in buttons)
